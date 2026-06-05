@@ -1,0 +1,16 @@
+# IDE
+.vscode/
+.idea/
+
+# Maven
+target/
+
+# Spring Boot
+HELP.md
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
