@@ -19,7 +19,19 @@ public class UserService {
 
         if (userRepository.existsByEmail(request.getEmail())) {
 
-            throw new RuntimeException("Email already exists");
+            // throw new RuntimeException("Email already exists");
+
+            User existingUser = userRepository.findByEmail(request.getEmail());
+
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(existingUser.getId());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+
         }
 
         // Implementation for user registration
@@ -27,6 +39,7 @@ public class UserService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setFirstName(request.getFirstName());
+        user.setKeycloakId(request.getKeycloakId());
         user.setLastName(request.getLastName());
 
         User savedUser = userRepository.save(user);
@@ -35,6 +48,7 @@ public class UserService {
         userResponse.setId(savedUser.getId());
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setPassword(savedUser.getPassword());
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName(savedUser.getLastName());
         userResponse.setCreatedAt(savedUser.getCreatedAt());
@@ -61,6 +75,7 @@ public class UserService {
     }
 
     public Boolean existByUserId(String userId) {
-        return userRepository.existsById(userId);
+        // return userRepository.existsById(userId);
+        return userRepository.existsByKeycloakId(userId);
     }
 }

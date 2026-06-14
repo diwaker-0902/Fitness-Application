@@ -24,6 +24,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    private String keycloakId; // Store Keycloak user ID for reference
+
     @Column(nullable = false)
     private String firstName;
     private String lastName;
